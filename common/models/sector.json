@@ -1,0 +1,16 @@
+{
+  "name": "sector",
+  "plural": "sectors",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "properties": {
+    "description": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": []
+}

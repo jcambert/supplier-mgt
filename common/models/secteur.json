@@ -1,0 +1,27 @@
+{
+  "name": "Secteur",
+  "plural": "secteurs",
+  "base": "PersistedModel",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "string"
+    },
+	"subsecteur":{
+	
+	},
+    "keywords": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": []
+}

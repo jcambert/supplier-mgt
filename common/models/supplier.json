@@ -1,0 +1,25 @@
+{
+  "name": "Supplier",
+  "plural": "suppliers",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+	"description": {
+		"type": "string"
+	},
+    "status": {
+      "type": "string"
+    },
+    "keywords": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": []
+}

@@ -1,0 +1,40 @@
+{
+  "name": "Product",
+  "plural": "products",
+  "base": "PersistedModel",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "categoryId": {
+      "type": "string"
+    },
+	"nuanceId":{
+	  "type": "string"
+	},
+	"epaisseur": {
+		"type": "Number"
+	},
+	"prix": {
+		"type": "Number"
+	},
+	"date":{
+		"type": "date"
+	}
+  },
+  "validations": [],
+  "relations": {
+    "category": {
+      "type": "belongsTo",
+      "model": "Category",
+      "foreignKey": "categoryId"
+    },
+	"nuance": {
+		"type": "belongsTo",
+		"model": "Nuance",
+		"foreignKey": "nuanceId"
+	}
+  },
+  "acls": [],
+  "methods": []
+}
