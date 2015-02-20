@@ -40,6 +40,18 @@ angular.module('com.module.users')
       LoopBackAuth.save();
       window.location = '/auth/logout';
     },
+	
+	inRole: function(roles,cb,err){
+		var currentUser = User.getCurrent();
+		currentUser.$promise.then(function(u){
+			User.roles({'id':u.id},function(roles,resp){
+				
+				cb({});
+			},
+			function(e){ err(e);}
+			);
+		});
+	},
 
     ensureHasCurrentUser: function (cb) {
       var self = this;
