@@ -12,22 +12,26 @@
  * @requires gettextCatalog
  **/
 angular.module('com.module.core')
-  .controller('MainCtrl', function ($scope, $rootScope, $state, $location, CoreService, User, gettextCatalog) {
+  .controller('MainCtrl', function ($scope, $rootScope, $state, $location, CoreService, User, gettextCatalog,AppAuth) {
 
 	
 	var rs=[];
     $scope.currentUser = User.getCurrent();
 	//console.dir( $scope.currentUser );
-	$scope.currentUser.$promise.then(function(u){
-		console.dir(u.id);
+	
+	AppAuth.inRole('admin',function(res){console.dir('MainCtrl'); $rootScope.isAdmin=res;})
+	
+	/*$scope.currentUser.$promise.then(function(u){
 		
+		console.dir(u.id);
+		console.dir(u);
 		User.roles({'id':u.id},function(roles,resp){
 			console.dir(roles[0].name);
 			
 		},
 		function(err){ console.dir(err);}
 		);
-	});
+	});*/
 	/*User.roles({'id':$scope.currentUser.id},function(err,roles){
 		console.dir(roles);
 	});*/

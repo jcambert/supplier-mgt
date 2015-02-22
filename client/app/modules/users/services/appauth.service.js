@@ -41,12 +41,14 @@ angular.module('com.module.users')
       window.location = '/auth/logout';
     },
 	
-	inRole: function(roles,cb,err){
+	inRole: function(rs,cb,err){
 		var currentUser = User.getCurrent();
+		var result=false;
 		currentUser.$promise.then(function(u){
 			User.roles({'id':u.id},function(roles,resp){
-				
-				cb({});
+				//console.dir(_.pluck( roles,'name'));
+				result=_.includes(_.pluck( roles,'name'),rs);
+				cb(result);
 			},
 			function(e){ err(e);}
 			);
