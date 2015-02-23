@@ -22,6 +22,7 @@ angular.module('com.module.users')
         LoopBackAuth.save();
         if (LoopBackAuth.currentUserId && response.data && response.data.user) {
           self.currentUser = response.data.user;
+		  //self.inRole('admin',function(result){self.currentUser.isAdmin=result;});
           cb(self.currentUser);
 
         } else {
@@ -46,7 +47,6 @@ angular.module('com.module.users')
 		var result=false;
 		currentUser.$promise.then(function(u){
 			User.roles({'id':u.id},function(roles,resp){
-				//console.dir(_.pluck( roles,'name'));
 				result=_.includes(_.pluck( roles,'name'),rs);
 				cb(result);
 			},

@@ -6,28 +6,31 @@ app.run(function ($rootScope, Setting, gettextCatalog) {
   $rootScope.menu = [];
 
   // Add Sidebar Menu
-  $rootScope.addMenu = function (name, uisref, icon) {
+  $rootScope.addMenu = function (name, uisref, icon,adminMenu) {
     $rootScope.menu.push({
       name: name,
       sref: uisref,
-      icon: icon
+      icon: icon,
+	  adminMenu:adminMenu
     });
   };
 
   // Add Menu Dashboard
-  $rootScope.addMenu(gettextCatalog.getString('Dashboard'), 'app.home', 'fa-dashboard');
+  $rootScope.addMenu(gettextCatalog.getString('Dashboard'), 'app.home', 'fa-dashboard',true);
 
   // Dashboard
   $rootScope.dashboardBox = [];
 
   // Add Dashboard Box
-  $rootScope.addDashboardBox = function (name, color, icon, quantity, href) {
+  $rootScope.addDashboardBox = function (name, color, icon, quantity, href,adminBox) {
+	adminBox=adminBox || false;
     $rootScope.dashboardBox.push({
       name: name,
       color: color,
       icon: icon,
       quantity: quantity,
-      href: href
+      href: href,
+	  adminBox:adminBox
     });
   };
 

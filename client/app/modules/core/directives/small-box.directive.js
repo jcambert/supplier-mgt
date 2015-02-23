@@ -23,4 +23,16 @@ angular.module ('com.module.core')
         href: '@'
       }
     };
-  });
+  })
+  
+  .filter('roleBoxAdmin',function(){
+	return function(boxes, isAdmin) {
+		 return  _.filter( boxes,function(box){
+			//console.dir(box.name+"-"+box.adminBox+"-is Admin:"+isAdmin);
+			return box.adminBox==isAdmin || box.adminBox==false;
+		  });
+		 
+	  };
+  
+  })
+  ;

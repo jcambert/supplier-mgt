@@ -69,4 +69,15 @@ angular.module('loopbackApp', [
 
     gettextCatalog.setCurrentLanguage($rootScope.locale.lang);
 
-  });
+  })
+  
+  .filter('roleMenuAdmin',function(){
+	return function(menus, isAdmin) {
+		 return  _.filter( menus,function(menu){
+			return menu.adminMenu==isAdmin || menu.adminMenu==false;
+		  });
+		 
+	  };
+  
+  })
+  ;

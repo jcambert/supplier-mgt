@@ -91,6 +91,7 @@ angular.module('com.module.users')
           var next = $location.nextAfterLogin || '/';
           $location.nextAfterLogin = null;
           AppAuth.currentUser = $scope.loginResult.user;
+		  AppAuth.inRole('admin',function(result){console.dir('you are admin:'+result); AppAuth.currentUser.isAdmin=result;});
           CoreService.toastSuccess(gettextCatalog.getString('Logged in'), gettextCatalog.getString('You are logged in!'));
           if (next === '/login') {
             next = '/';

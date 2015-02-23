@@ -1,6 +1,6 @@
 'use strict';
 angular.module('com.module.products')
-  .controller('ProductsCtrl', function ($scope, $state, $stateParams, CoreService, gettextCatalog, Product, Category) {
+  .controller('ProductsCtrl', function ($scope, $state, $stateParams, CoreService, gettextCatalog, Product, Category,Nuance) {
 
     var productId = $stateParams.id;
     var categoryId = $stateParams.categoryId;
@@ -60,7 +60,58 @@ angular.module('com.module.products')
 
     };
 
-    $scope.formFields = [
+	var formFields=[];
+	formFields.push([]);
+	
+	formFields.push(
+		[
+      {
+        key: 'name',
+        type: 'text',
+        label: gettextCatalog.getString('Name'),
+        required: true
+      },
+      {
+        key: 'categoryId',
+        type: 'hide',
+        label: gettextCatalog.getString('Category'),
+        required: true
+      },
+      
+      {
+        key: 'prix',
+        type: 'text',
+        label: gettextCatalog.getString('Price')
+      },
+	  {
+        key: 'nuance',
+        type: 'select',
+        label: gettextCatalog.getString('Nuance'),
+		options: []
+      },
+	  {
+        key: 'epaisseur',
+        type: 'text',
+        label: gettextCatalog.getString('Thickness')
+      },
+    ]
+	
+	);
+	
+	$scope.formFields =formFields[$stateParams.categoryId];
+	
+	if($stateParams.categoryId==1){
+		Nuance.find({},function(nuances){
+			var idx=-1;
+			idx=_.findLastIndex(formFields[1],function(c){ return c.key=='nuance';});
+			console.log('options:'+idx);
+			_.map(nuances,function(nuance){
+				formFields[1][idx].options.push({"name":nuance.name});
+			});
+			
+		});
+	}
+    /*$scope.formFields = [
       {
         key: 'name',
         type: 'text',
@@ -85,11 +136,11 @@ angular.module('com.module.products')
         label: gettextCatalog.getString('Percentage')
       },
       {
-        key: 'price',
+        key: 'prix',
         type: 'text',
         label: gettextCatalog.getString('Price')
       }
-    ];
+    ];*/
 
     $scope.formOptions = {
       uniqueFormId: true,
