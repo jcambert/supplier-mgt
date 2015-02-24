@@ -60,6 +60,7 @@ module.exports = function (app) {
     });
   });
 */
+	Nuance.create({name:'S355'},function(err,nuance){});
 	Nuance.create({name:'S235JR'},function(err,nuance){
 		if (err) {
 		  console.log('err', err);

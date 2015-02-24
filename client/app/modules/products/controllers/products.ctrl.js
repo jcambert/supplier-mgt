@@ -67,9 +67,9 @@ angular.module('com.module.products')
 		[
       {
         key: 'name',
-        type: 'text',
+        type: 'hidden',
         label: gettextCatalog.getString('Name'),
-        required: true
+        //required: true
       },
       {
         key: 'categoryId',
@@ -87,7 +87,7 @@ angular.module('com.module.products')
         key: 'nuance',
         type: 'select',
         label: gettextCatalog.getString('Nuance'),
-		options: []
+		options: [{'value':10,'name':'test','group':'toto'},{'value':11,'name':'test1','group':'toto'},{'value':12,'name':'test2','group':'titi'}]
       },
 	  {
         key: 'epaisseur',
@@ -106,11 +106,18 @@ angular.module('com.module.products')
 			idx=_.findLastIndex(formFields[1],function(c){ return c.key=='nuance';});
 			console.log('options:'+idx);
 			_.map(nuances,function(nuance){
-				formFields[1][idx].options.push({"name":nuance.name});
+				//formFields[1][idx].options.push({"value":nuance.id,"name":nuance.name});
 			});
 			
 		});
+		
 	}
+	
+	Product.beforeSave = function(next, modelInstance) {
+		console.log('Product.beforeSave ');
+		modelInstance.name=modelInstance.nuance +' ep: ' + modelInstance.epaisseur ;
+		next();
+	};
     /*$scope.formFields = [
       {
         key: 'name',
@@ -149,12 +156,17 @@ angular.module('com.module.products')
     };
 
     $scope.onSubmit = function () {
-      Product.upsert($scope.product, function () {
-        CoreService.toastSuccess(gettextCatalog.getString('Product saved'), gettextCatalog.getString('Your product is safe with us!'));
-        $state.go('^.list');
-      }, function (err) {
-        console.log(err);
-      });
+	console.dir($scope.product);
+		Nuance.findById({id:$scope.product.nuanceId},function(nuance){
+			$scope.product.name=nuance.name+ ' ep: '+$scope.product.epaisseur;
+			  Product.upsert($scope.product, function () {
+				CoreService.toastSuccess(gettextCatalog.getString('Product saved'), gettextCatalog.getString('Your product is safe with us!'));
+				$state.go('^.list');
+			  }, function (err) {
+				console.log(err);
+			  });
+		});
+	  
     };
 
   });
