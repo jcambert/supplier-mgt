@@ -10,6 +10,7 @@ angular.module('com.module.products')
         id: productId
       }, function (product) {
         product.category = Product.category({id: product.id});
+		//product.nuance= Product.nuance({id:product.id});
       }, function (err) {
         console.log(err);
       });
@@ -23,7 +24,7 @@ angular.module('com.module.products')
 
     function loadItems() {
       $scope.categories = [];
-      Category.find(function (categories) {
+      Category.find({order:'id'}, function (categories) {
         angular.forEach(categories, function (category) {
           category.products = Category.products({id: category.id});
           this.push(category);
@@ -63,7 +64,8 @@ angular.module('com.module.products')
 	var formFields=[];
 	formFields.push([]);
 	
-	formFields.push(
+	var formFields_tole=
+	
 		[
       {
         key: 'name',
@@ -84,10 +86,10 @@ angular.module('com.module.products')
         label: gettextCatalog.getString('Price')
       },
 	  {
-        key: 'nuance',
+        key: 'nuanceId',
         type: 'select',
         label: gettextCatalog.getString('Nuance'),
-		options: [{'value':10,'name':'test','group':'toto'},{'value':11,'name':'test1','group':'toto'},{'value':12,'name':'test2','group':'titi'}]
+		options: []
       },
 	  {
         key: 'epaisseur',
@@ -95,20 +97,21 @@ angular.module('com.module.products')
         label: gettextCatalog.getString('Thickness')
       },
     ]
-	
-	);
+	formFields.push(formFields_tole);
+	formFields.push(formFields_tole);
 	
 	$scope.formFields =formFields[$stateParams.categoryId];
 	
-	if($stateParams.categoryId==1){
+	if($stateParams.categoryId==1 || $stateParams.categoryId==2){
+		console.dir($scope.product);
 		Nuance.find({},function(nuances){
 			var idx=-1;
-			idx=_.findLastIndex(formFields[1],function(c){ return c.key=='nuance';});
+			idx=_.findLastIndex(formFields[1],function(c){ return c.key=='nuanceId';});
 			console.log('options:'+idx);
 			_.map(nuances,function(nuance){
-				//formFields[1][idx].options.push({"value":nuance.id,"name":nuance.name});
+				formFields[1][idx].options.push({"value":nuance.id,"name":nuance.name});
 			});
-			
+			console.dir(formFields[1][idx].options);
 		});
 		
 	}
@@ -118,36 +121,7 @@ angular.module('com.module.products')
 		modelInstance.name=modelInstance.nuance +' ep: ' + modelInstance.epaisseur ;
 		next();
 	};
-    /*$scope.formFields = [
-      {
-        key: 'name',
-        type: 'text',
-        label: gettextCatalog.getString('Name'),
-        required: true
-      },
-      {
-        key: 'categoryId',
-        type: 'text',
-        label: gettextCatalog.getString('Category'),
-        required: true
-      },
-      {
-        key: 'description',
-        type: 'text',
-        label: gettextCatalog.getString('Description'),
-		placeholder: 'Description'
-      },
-      {
-        key: 'percentage',
-        type: 'text',
-        label: gettextCatalog.getString('Percentage')
-      },
-      {
-        key: 'prix',
-        type: 'text',
-        label: gettextCatalog.getString('Price')
-      }
-    ];*/
+    
 
     $scope.formOptions = {
       uniqueFormId: true,
@@ -169,4 +143,26 @@ angular.module('com.module.products')
 	  
     };
 
-  });
+  })
+  //Cars.find({ where: {carClass:'fullsize'} });
+  //include:{'category','nuance'},where:{categoryId:$stateParams.categoryId},
+  .controller('ReportProductsCtrl', function ($scope, $state, $stateParams, CoreService, gettextCatalog, Product, Category,Nuance) {
+	function loadItems(){
+		console.dir('Report Category id:'+$stateParams.categoryId);
+		Product.find({filter:{where:{categoryId:$stateParams.categoryId},order:['nuanceId','epaisseur' ],include: ['category', 'nuance']}},function(products){
+			var report=[];
+			console.dir(products);
+			var nuancesId=_.pluck(products,'nuanceId');
+			var epaisseurs=_.pluck(products,'epaisseur');
+			angular.forEach(nuancesId,function(nuanceId){
+				var product_matches=_.find(products,function(product){return product.nuanceId=nuanceId});
+				
+			});
+		});
+	};
+	
+	loadItems();
+	
+	
+  })
+  ;

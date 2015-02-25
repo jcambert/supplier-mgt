@@ -46,6 +46,16 @@ angular.module ('com.module.products')
 	},
     controller: 'ProductsCtrl'
   })
+  
+  .state ('app.products.report', {
+    url: '/report/:categoryId',
+    //templateUrl: 'modules/products/views/form.html',
+	templateUrl: function($stateParams){
+		return 'modules/products/views/' + $stateParams.categoryId + '/report.html';
+	},
+    controller: 'ReportProductsCtrl'
+  })
+  
     .state ('app.products.editcategory', {
     url: '/editcategory/:categoryId',
     templateUrl: 'modules/products/views/categoryform.html',

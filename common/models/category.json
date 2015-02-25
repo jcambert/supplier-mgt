@@ -5,7 +5,10 @@
   "properties": {
     "name": {
       "type": "string"
-    }
+    },
+	"description": {
+	  "type": "string"
+	}
   },
   "validations": [],
   "relations": {

@@ -20,6 +20,11 @@ angular.module('com.module.products')
         type: 'text',
         label: gettextCatalog.getString('Name'),
         required: true
+      },
+	   {
+        key: 'description',
+        type: 'text',
+        label: gettextCatalog.getString('Description')
       }
     ];
 

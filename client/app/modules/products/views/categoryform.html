@@ -1,17 +1,17 @@
-<div ng-hide="isAdmin">
+<div ng-hide="currentUser.isAdmin">
 	<h4>
 	  <a href="" ui-sref="^.list" class="btn btn-default"><i class="fa fa-arrow-left"></i></a>
 	  <span ng-show="!category.id " translate>You are not allowed to add a new category</span>
 	  
 	</h4>
 </div>
-<div ng-show="isAdmin">
+<div ng-show="currentUser.isAdmin">
 	<h4>
 	  <a href="" ui-sref="^.list" class="btn btn-default"><i class="fa fa-arrow-left"></i></a>
 	  <span ng-show="!category.id " translate>Add a new category</span>
 	  <span ng-show="category.id" translate>Edit category</span>
 	</h4>
-	<div class="row" ng-show="isAdmin">
+	<div class="row" >
 	  <div class="col-md-4">
 		<div class="alert alert-danger" ng-if="addError" translate>Could not add category!</div>
 		<formly-form result="category" fields="formFields" options="formOptions" ng-submit="onSubmit()"></formly-form>
