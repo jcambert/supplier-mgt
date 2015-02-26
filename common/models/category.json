@@ -8,6 +8,9 @@
     },
 	"description": {
 	  "type": "string"
+	},
+	"report_title":{
+		"type": "string"
 	}
   },
   "validations": [],

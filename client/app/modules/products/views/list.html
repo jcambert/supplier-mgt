@@ -1,8 +1,11 @@
-<div class="panel panel-default" ng-repeat="category in categories">
+<div class="panel panel-default" ng-repeat="category in categories" ng-cloak>
     <div class="panel-heading">
         <div class="pull-right">
 			 <a href="" class="btn btn-default btn-xs" ui-sref="^.report({ categoryId: category.id })"
                title="{{ 'Report a category' | translate }}" ><i class="fa fa-euro"></i></a>
+			<a href="" class="btn btn-default btn-xs" ng-model="collapsed" ng-click="collapsed=!collapsed" title="{{ (collapsed?'Hide details':'Show details') | translate }}" ><i ng-class="{'fa-chevron-down':!collapsed,'fa-chevron-up':collapsed}" class="fa "></i></a>
+			   
+			   
 			   
             <a href="" class="btn btn-default btn-xs" ui-sref="^.add({ categoryId: category.id })"
                title="{{ 'Add product to category' | translate }}" ><i class="fa fa-plus-circle"></i></a>
@@ -13,7 +16,7 @@
         </div>
         <h3 class="panel-title">{{ category.name }}</h3><p class="panel-title">{{category.description}}</p>
     </div>
-    <table class="table table-bordered" ng-show="category.products.length">
+    <table class="table table-bordered" ng-show="category.products.length && collapsed" >
         <tbody>
         <tr ng-repeat="item in category.products">
             <th>

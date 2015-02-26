@@ -149,14 +149,54 @@ angular.module('com.module.products')
   .controller('ReportProductsCtrl', function ($scope, $state, $stateParams, CoreService, gettextCatalog, Product, Category,Nuance) {
 	function loadItems(){
 		console.dir('Report Category id:'+$stateParams.categoryId);
-		Product.find({filter:{where:{categoryId:$stateParams.categoryId},order:['nuanceId','epaisseur' ],include: ['category', 'nuance']}},function(products){
-			var report=[];
-			console.dir(products);
-			var nuancesId=_.pluck(products,'nuanceId');
-			var epaisseurs=_.pluck(products,'epaisseur');
-			angular.forEach(nuancesId,function(nuanceId){
-				var product_matches=_.find(products,function(product){return product.nuanceId=nuanceId});
+		
+		Nuance.find({filter:{order:'name'}},function(nuances){
+			Product.find({filter:{where:{categoryId:$stateParams.categoryId},order:['nuance.name'],include: ['category', 'nuance']}},function(products){
+				var headers=[];headers.push('');
+				var report=[];
+				var tmp={};
+				console.dir(products);
+				var nuancesId=_.uniq(_.pluck(products,'nuanceId'),function(n){return n;});
+				console.log('liste des nuances');
+				console.dir(nuancesId);
+				var epaisseurs=_.uniq(_.pluck(products,'epaisseur'),function(e){return e;});
+				var i,j;
+				i=0;j=0;
 				
+				if(products.length){
+					$scope.category=products[0].category;
+				}
+				
+				angular.forEach(nuancesId,function(nuanceId){
+					var nuance=_.find(nuances,function(nuance){return nuance.id==nuanceId;});
+					headers.push(nuance.name);
+					
+				});
+				angular.forEach(epaisseurs,function(epaisseur){
+					tmp={epaisseur:epaisseur,prix:new Array(headers.length-1)};
+					angular.forEach(nuancesId,function(nuanceId){
+						var nuance=_.find(nuances,function(nuance){return nuance.id==nuanceId;});
+						var p_matches=_.filter(products,function(product){return product.nuanceId==nuanceId && product.epaisseur==epaisseur;});
+						
+						if(p_matches.length){
+							angular.forEach(p_matches,function(p){
+								tmp.prix[headers.indexOf(p.nuance.name)-1]={id:p.id,categoryId:p.categoryId,prix:p.prix};
+							});
+							
+						}
+						
+					});
+					report.push(tmp);
+				
+				});
+				
+				console.log('Report');
+				console.dir(report);
+				console.log('header');
+				console.dir(headers);
+				
+				$scope.headers=headers;
+				$scope.reports=_.sortBy(report,'epaisseur');
 			});
 		});
 	};

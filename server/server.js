@@ -6,6 +6,7 @@ var path = require('path');
 var app = module.exports = loopback();
 var env = require('get-env')({test: 'test'});
 
+
 // Set up the /favicon.ico
 app.use(loopback.favicon());
 

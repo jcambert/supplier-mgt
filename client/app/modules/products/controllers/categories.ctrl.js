@@ -25,7 +25,12 @@ angular.module('com.module.products')
         key: 'description',
         type: 'text',
         label: gettextCatalog.getString('Description')
-      }
+      },
+	  {
+		key: 'report_title',
+		type:'text',
+		label: gettextCatalog.getString('Report Title')
+	  }
     ];
 
     $scope.formOptions = {
