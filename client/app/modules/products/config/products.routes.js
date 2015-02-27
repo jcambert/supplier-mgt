@@ -14,7 +14,6 @@ angular.module ('com.module.products')
   })
     .state ('app.products.add', {
     url: '/add/:categoryId',
-    //templateUrl: 'modules/products/views/form.html',
 	templateUrl: function($stateParams){
 		return 'modules/products/views/' + $stateParams.categoryId + '/form.html';
 	},
@@ -22,7 +21,6 @@ angular.module ('com.module.products')
   })
     .state ('app.products.edit', {
     url: '/:categoryId/:id/edit',
-    //templateUrl: 'modules/products/views/form.html',
 	templateUrl: function($stateParams){
 		return 'modules/products/views/' + $stateParams.categoryId + '/form.html';
 	},
@@ -33,32 +31,31 @@ angular.module ('com.module.products')
     templateUrl: 'modules/products/views/categoryform.html',
     controller: 'CategoriesCtrl'
   })
-   /* .state ('app.products.view', {
-    url: '/:id',
-    templateUrl: 'modules/products/views/view.html',
-    controller: 'ProductsCtrl'
-  })*/
+
    .state ('app.products.view', {
     url: '/:categoryId/:id',
     templateUrl: function($stateParams){
 		return 'modules/products/views/' + $stateParams.categoryId + '/view.html'
-		//return 'modules/products/views/Beer/view.html'
 	},
     controller: 'ProductsCtrl'
   })
   
   .state ('app.products.report', {
     url: '/report/:categoryId',
-    //templateUrl: 'modules/products/views/form.html',
 	templateUrl: function($stateParams){
 		return 'modules/products/views/' + $stateParams.categoryId + '/report.html';
 	},
     controller: 'ReportProductsCtrl'
   })
-  
-    .state ('app.products.editcategory', {
+  .state ('app.products.editcategory', {
     url: '/editcategory/:categoryId',
     templateUrl: 'modules/products/views/categoryform.html',
     controller: 'CategoriesCtrl'
-  });
+  })
+  .state ('app.products.updatecategory', {
+    url: '/updatecategory/:categoryId',
+    templateUrl: 'modules/products/views/updatecategory.html',
+    controller: 'CategoriesCtrl'
+  })
+  ;
 });

@@ -44,6 +44,10 @@ module.exports = function (app) {
 	name: 'Tole',
 	report_title:'CONDITIONS ACHATS MATIERES PREMIERES SUR STOCK chez ALACIER (Salzgitter)',
 	description:'Prix Achats en €/t des Toles pour Coupage Laser Long 3000 à 6000*larg 1500',
+	date_start_validity:new Date('2015-01-01'),
+	date_end_validity:new Date('2015-03-31'),
+	status:1,
+	sale_coeficient:1.15,
 	  }, function (err, category) {
 		if (err) {
 		  console.log('err', err);
@@ -70,6 +74,10 @@ module.exports = function (app) {
 	name: 'Tole',
 	report_title:'CONDITIONS ACHATS MATIERES PREMIERES SUR STOCK chez ALACIER (Salzgitter)',
 	description:'Prix Achats en €/t des Toles pour Coupage Laser Long 4000 à12000*larg 2000',
+	date_start_validity:new Date('2015-01-01'),
+	date_end_validity:new Date('2015-03-31'),
+	status:1,
+	sale_coeficient:1.15,
 	  }, function (err, category) {
 		if (err) {
 		  console.log('err', err);
@@ -89,12 +97,17 @@ module.exports = function (app) {
 		});
 		
 	  });
+	   
 	  
 	Category.create({
 	id:3,
 	name: 'Plaque',
 	report_title:'',
 	description:'Prix Achats en € /t des Plaques pour Coupage Oxy/Plasma Long 6000 à 12000*larg 2000 à 2500',
+	date_start_validity:new Date('2015-01-01'),
+	date_end_validity:new Date('2015-03-31'),
+	status:1,
+	sale_coeficient:1.15,
 	  }, function (err, category) {
 		if (err) {
 		  console.log('err', err);

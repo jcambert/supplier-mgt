@@ -11,6 +11,18 @@
 	},
 	"report_title":{
 		"type": "string"
+	},
+	"date_start_validity":{
+		"type": "date"
+	},
+	"date_end_validity":{
+		"type": "date"
+	},
+	"status":{
+		"type": "number"
+	},
+	"sale_coeficient":{
+		"type":"number"
 	}
   },
   "validations": [],

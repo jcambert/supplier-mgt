@@ -5,7 +5,7 @@
                title="{{ 'Report a category' | translate }}" ><i class="fa fa-euro"></i></a>
 			<a href="" class="btn btn-default btn-xs" ng-model="collapsed" ng-click="collapsed=!collapsed" title="{{ (collapsed?'Hide details':'Show details') | translate }}" ><i ng-class="{'fa-chevron-down':!collapsed,'fa-chevron-up':collapsed}" class="fa "></i></a>
 			   
-			   
+			<a href="" class="btn btn-default btn-xs" ui-sref="^.updatecategory({ categoryId: category.id })" title="{{ 'Update product to category' | translate }}" ><i class="fa fa-history"></i></a>
 			   
             <a href="" class="btn btn-default btn-xs" ui-sref="^.add({ categoryId: category.id })"
                title="{{ 'Add product to category' | translate }}" ><i class="fa fa-plus-circle"></i></a>
@@ -14,7 +14,9 @@
             <a href="" class="btn btn-default btn-xs" ng-click="deletecategory({ id: category.id })"
                title="{{ 'Delete category' | translate }}"><i class="fa fa-trash-o"></i></a>
         </div>
-        <h3 class="panel-title">{{ category.name }}</h3><p class="panel-title">{{category.description}}</p>
+        <h3 class="panel-title">{{ category.name }}</h3>
+		<p class="panel-title">{{category.description}}</p>
+		<p class="panel-title " ng-class="{'alert alert-danger': overdate(category.date_end_validity),'alert alert-warning':closedate(category.date_end_validity)}">Periode du {{category.date_start_validity | date: 'shortDate' }} au {{category.date_end_validity | date: 'shortDate'}}</p>
     </div>
     <table class="table table-bordered" ng-show="category.products.length && collapsed" >
         <tbody>

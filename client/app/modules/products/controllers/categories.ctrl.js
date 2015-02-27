@@ -30,6 +30,11 @@ angular.module('com.module.products')
 		key: 'report_title',
 		type:'text',
 		label: gettextCatalog.getString('Report Title')
+	  },
+	  {
+		key: 'sale_coeficient',
+		type:'number',
+		label: gettextCatalog.getString('Sale Coeficient')
 	  }
     ];
 

@@ -2,6 +2,8 @@
 angular.module('com.module.products')
   .controller('ProductsCtrl', function ($scope, $state, $stateParams, CoreService, gettextCatalog, Product, Category,Nuance) {
 
+	var today = new Date();
+	var closeday=addDays(today,-15);
     var productId = $stateParams.id;
     var categoryId = $stateParams.categoryId;
 
@@ -22,9 +24,27 @@ angular.module('com.module.products')
       $scope.product.categoryId = categoryId;
     }
 
+	$scope.overdate = function(date_validity){
+		//console.log('Date de validite:'+date_validity);
+		//console.log(new Date(date_validity)>new Date());
+		return new Date(date_validity)<today;
+	};
+	
+	$scope.closedate = function(date_validity){
+		//console.log('Date de validite:'+date_validity);
+		//console.log(new Date(date_validity)>new Date());
+		return new Date(date_validity)<closeday;
+	};
+	
+	function addDays(date, days) {
+		var result = new Date(date);
+		result.setDate(date.getDate() + days);
+		return result;
+	}
+	
     function loadItems() {
       $scope.categories = [];
-      Category.find({order:'id'}, function (categories) {
+      Category.find({filter:{where:{'status':1},order:'id'}}, function (categories) {
         angular.forEach(categories, function (category) {
           category.products = Category.products({id: category.id});
           this.push(category);
@@ -99,10 +119,11 @@ angular.module('com.module.products')
     ]
 	formFields.push(formFields_tole);
 	formFields.push(formFields_tole);
+	formFields.push(formFields_tole);
 	
 	$scope.formFields =formFields[$stateParams.categoryId];
 	
-	if($stateParams.categoryId==1 || $stateParams.categoryId==2){
+	if($stateParams.categoryId==1 || $stateParams.categoryId==2 || $stateParams.categoryId==3){
 		console.dir($scope.product);
 		Nuance.find({},function(nuances){
 			var idx=-1;
@@ -180,7 +201,7 @@ angular.module('com.module.products')
 						
 						if(p_matches.length){
 							angular.forEach(p_matches,function(p){
-								tmp.prix[headers.indexOf(p.nuance.name)-1]={id:p.id,categoryId:p.categoryId,prix:p.prix};
+								tmp.prix[headers.indexOf(p.nuance.name)-1]={id:p.id,categoryId:p.categoryId,prix:p.prix,sale_coeficient:p.category.sale_coeficient};
 							});
 							
 						}

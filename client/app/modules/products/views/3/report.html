@@ -11,7 +11,7 @@
 			<tr><th ng-repeat='header in headers'>{{header}}</th></tr>
 		</thead>
 		<tr ng-repeat='report in reports'>
-			<td>{{report.epaisseur}}</td><td ng-repeat='price in report.prix track by $index' title='{{price*1.15}}'>{{price}}</td>
+			<td>{{report.epaisseur}}</td><td ng-repeat='price in report.prix track by $index' title='Prix MP Vente/t: {{price.prix*price.sale_coeficient}}€'><a href="" ui-sref="^.edit({categoryId:price.categoryId,id: price.id})" >{{price.prix}}</a></td>
 		</tr>
 	</table>
   </div>
