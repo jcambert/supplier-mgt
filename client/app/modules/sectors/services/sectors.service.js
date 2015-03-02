@@ -11,6 +11,13 @@ app.service('SectorsService', ['CoreService', 'gettextCatalog', 'Sector', functi
     }*/).$promise;
   };
 
+  this.getSectorsWithSuppliers = function () {
+    return Sector.find({filter:{include:['suppliers']}}/*{
+      filter: {
+        order: 'created DESC'
+      }
+    }*/).$promise;
+  };
   this.getSector = function (id) {
     return Sector.findById({id: id}).$promise;
   };

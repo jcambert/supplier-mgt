@@ -5,7 +5,7 @@ angular.module('com.module.sectors')
     var sectorId = $stateParams.id;
 	
 	if (sectorId) {
-      $scope.sector = Sector.findById({filter:{include:['sectors']}},{
+      $scope.sector = Sector.findById({filter:{include:['suppliers']}},{
         id: sectorId
       }, function (sector) {
 		console.dir(sector);
@@ -23,12 +23,18 @@ angular.module('com.module.sectors')
       });
     };
    
+	
 
     $scope.formFields = [
-	  
+	  {
+        key: 'name',
+        type: 'text',
+        label: gettextCatalog.getString('Name'),
+        required: true
+      },
 	  {
         key: 'description',
-        type: 'text',
+        type: 'textarea',
         label: gettextCatalog.getString('Description'),
         required: true
       }
@@ -41,7 +47,7 @@ angular.module('com.module.sectors')
     };
 
 	$scope.onAddSupplier = function(supplierId){
-		//Supplier.sectors.
+		//Supplier.sectors.upsert(
 	}
 	
     $scope.onSubmit = function () {

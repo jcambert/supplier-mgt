@@ -43,11 +43,10 @@
 		"model": "Contact",
 		"foreignKey": "contactId"
 	},
-	"sectors":{
-		"type": "hasMany",
-		"model": "Sector",
-		"foreignKey": "sectorId"
-	}
+	"sectors": {
+      "type": "hasAndBelongsToMany",
+      "model": "Sector"
+    }
   },
   "acls": [],
   "methods": []

@@ -15,7 +15,8 @@ module.exports = function (app) {
   
   Sector.create({
 		id:1,
-		description:'Sous-traitant decoupe'
+		name:'Sous-traitant decoupe',
+		description:'Decoupe'
 	},
 	function(err,sector){
 		Supplier.create({
@@ -24,18 +25,29 @@ module.exports = function (app) {
 			postal_code:'25600',
 			city:'Etupes',
 			description:'Decoupe Jet d eau',
-			keywords:'decoupe jet eau',
-			sectors:[sector.id]
+			keywords:'decoupe jet eau'
 		  },
 		  function(err,supplier){
-			
+			supplier.sectors.add(sector,function(err){ if(err)console.log(err);});
 		  });
   
+		Supplier.create({
+			name: 'Laser Evolution',
+			address1: '',
+			postal_code:'70250',
+			city:'Hericourt',
+			description:'Decoupe Laser',
+			keywords:'decoupe laser'
+		  },
+		  function(err,supplier){
+			supplier.sectors.add(sector,function(err){if(err) console.log(err);});
+		  });
 	});
   
    Sector.create({
 		id:2,
-		description:'Traitement de surface'
+		name:'Traitement de surface',
+		description:'Surface'
 	},
 	function(err,sector){
 		Supplier.create({
@@ -44,11 +56,10 @@ module.exports = function (app) {
 			postal_code:'26120',
 			city:'Chabeuil',
 			description:'Galvanisation',
-			keywords:'Galvanisation',
-			sectors:[sector.id]
+			keywords:'Galvanisation'
 		  },
 		  function(err,supplier){
-			
+			supplier.sectors.add(sector,function(err){if(err) console.log(err);});
 		  });
   
 	}); 

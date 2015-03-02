@@ -15,11 +15,23 @@ angular.module ('com.module.sectors')
 		templateUrl: 'modules/sectors/views/list.html',
 		resolve: {
 		  sectors: ['SectorsService', function (SectorsService) {
-			return SectorsService.getSectors();
+			return SectorsService.getSectorsWithSuppliers();
 		  }]
 		},
-		 controller: function ($scope,$state, sectors,SectorsService) {
+		 controller: function ($scope,$state, Sector, sectors,SectorsService) {
 		  $scope.sectors = sectors;
+		  
+		  $scope.removeSupplier = function(id){
+				console.dir(id);
+				
+				Sector.findOne({filter:{where:{id:id.sectorId},include:'suppliers'}},function(sector){
+					sector.suppliers.findById(id.supplierId,function(err,supplier){
+							sector.suppliers.remove(supplier,function(err){$state.reload();if(err)console.dir(err);});
+						});
+				});
+				
+				
+			};
 		  $scope.delete = function (id) {
 			  SectorsService.deleteSector(id, function () {
 				$state.reload();

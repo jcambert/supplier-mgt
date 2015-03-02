@@ -1,19 +1,29 @@
-<div class="panel panel-default" >
-
-    <table class="table table-bordered" ng-show="sectors.length">
+<div class="panel panel-default" ng-repeat="sector in sectors">
+	 <div class="panel-heading">
+        <div class="pull-right">
+			<a href="" class="btn btn-default btn-xs" ng-model="collapsed" ng-click="collapsed=!collapsed"  ><i ng-class="{'fa-chevron-down':!collapsed,'fa-chevron-up':collapsed}" class="fa "></i></a>
+             <a href="" class="btn btn-default btn-xs" ui-sref="^.supplieradd({ id: sector.id })">
+				<i class="fa fa-plus-circle"></i>
+			</a>
+			<a href="" class="btn btn-default btn-xs" ui-sref="^.edit({ id: sector.id })" ><i class="fa fa-pencil"></i></a>
+        </div>
+        <h3 class="panel-title">{{ sector.name }}</h3>
+		<p class="panel-title">{{sector.description}}</p>
+		
+    </div>
+	
+    <table class="table table-bordered" ng-show="sector.suppliers.length && collapsed">
         <tbody>
-        <tr ng-repeat="item in sectors">
+        <tr ng-repeat="supplier in sector.suppliers">
             <th>
-                <a href="" ui-sref="^.view({id: item.id})">{{item.name}}</a>
-                <small>{{item.description}}</small>
+                <a href="" ui-sref="^.view({id: supplier.id})">{{supplier.name}}</a>
+                <small>{{supplier.description}}</small>
                 <div class="pull-right">
-                     <a href="" class="btn btn-xs btn-default" ui-sref="^.supplieradd({id: item.id})" >
-                        <i class="fa fa-pencil" ng-title="add a supplier"></i>
-                    </a>
-                    <a href="" class="btn btn-xs btn-default" ui-sref="^.edit({id: item.id})">
+                     
+                    <a href="" class="btn btn-xs btn-default" ui-sref="app.suppliers.edit({id: supplier.id})">
                         <i class="fa fa-pencil"></i>
                     </a>
-                    <a href="" class="btn btn-xs btn-default" ng-click="delete({id: item.id})">
+                    <a href="" class="btn btn-xs btn-default" ng-click="removeSupplier({sectorId:sector.id, supplierId: supplier.id})">
                         <i class="fa fa-trash-o"></i>
                     </a>
                 </div>
