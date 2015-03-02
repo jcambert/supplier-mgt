@@ -1,36 +1,27 @@
 {
-  "name": "Supplier",
-  "plural": "suppliers",
+  "name": "Contact",
+  "plural": "Contacts",
   "base": "PersistedModel",
   "idInjection": true,
   "properties": {
-    "name": {
+    "first_name": {
       "type": "string",
       "required": true
     },
-	"address1":{
+	"last_name": {
 	  "type": "string"
 	},
-	"address2": {
+	"phone":{
 	  "type": "string"
 	},
-	"postal_code": {
-	  "type": "string"
-	},
-	"city": {
-	  "type": "string"
-	},
-	"country": {
-	  "type": "string"
-	},
-	"internet_site": {
-	  "type": "string"
+	"email": {
+	  "type":"string"
 	},
 	"description": {
 		"type": "string"
 	},
     "status": {
-      "type": "string"
+      "type": "number"
     },
     "keywords": {
       "type": "string"
@@ -42,11 +33,6 @@
 		"type": "hasMany",
 		"model": "Contact",
 		"foreignKey": "contactId"
-	},
-	"sectors":{
-		"type": "hasMany",
-		"model": "Sector",
-		"foreignKey": "sectorId"
 	}
   },
   "acls": [],

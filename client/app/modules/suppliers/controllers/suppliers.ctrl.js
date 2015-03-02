@@ -5,9 +5,11 @@ angular.module('com.module.suppliers')
     var supplierId = $stateParams.id;
 
 	if (supplierId) {
-      $scope.supplier = Supplier.findById({
+      $scope.supplier = Supplier.findById({filter:{include:['sectors']}},{
         id: supplierId
-      }, function () {
+      }, function (supplier) {
+		console.dir(supplier);
+		
       }, function (err) {
         console.log(err);
       });
@@ -21,6 +23,9 @@ angular.module('com.module.suppliers')
       });
     };
 
+	Supplier.find({filter:{include:['sectors']}},function(supplier){
+		console.dir(supplier);
+	});
    
 
     $scope.formFields = [
@@ -31,8 +36,43 @@ angular.module('com.module.suppliers')
         required: true
       },
 	  {
-        key: 'description',
+        key: 'address1',
         type: 'text',
+        label: gettextCatalog.getString('Address 1')
+      },
+	  {
+        key: 'address2',
+        type: 'text',
+        label: gettextCatalog.getString('Address 2')
+      },
+	  {
+        key: 'postal_code',
+        type: 'text',
+        label: gettextCatalog.getString('Postal Code')
+      },
+	  {
+        key: 'city',
+        type: 'text',
+        label: gettextCatalog.getString('City')
+      },
+	  {
+        key: 'country',
+        type: 'text',
+        label: gettextCatalog.getString('Country')
+      },
+	  {
+        key: 'internet_site',
+        type: 'text',
+        label: gettextCatalog.getString('Internet Site')
+      },
+	  {
+        key: 'keywords',
+        type: 'textarea',
+        label: gettextCatalog.getString('Keywords	')
+      },
+	  {
+        key: 'description',
+        type: 'textarea',
         label: gettextCatalog.getString('Description'),
         required: true
       }

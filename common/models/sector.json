@@ -1,6 +1,6 @@
 {
-  "name": "sector",
-  "plural": "sectors",
+  "name": "Sector",
+  "plural": "Sectors",
   "base": "PersistedModel",
   "idInjection": true,
   "properties": {

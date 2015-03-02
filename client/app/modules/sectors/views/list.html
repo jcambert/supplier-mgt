@@ -1,0 +1,30 @@
+<div class="panel panel-default" >
+
+    <table class="table table-bordered" ng-show="sectors.length">
+        <tbody>
+        <tr ng-repeat="item in sectors">
+            <th>
+                <a href="" ui-sref="^.view({id: item.id})">{{item.name}}</a>
+                <small>{{item.description}}</small>
+                <div class="pull-right">
+                     <a href="" class="btn btn-xs btn-default" ui-sref="^.supplieradd({id: item.id})" >
+                        <i class="fa fa-pencil" ng-title="add a supplier"></i>
+                    </a>
+                    <a href="" class="btn btn-xs btn-default" ui-sref="^.edit({id: item.id})">
+                        <i class="fa fa-pencil"></i>
+                    </a>
+                    <a href="" class="btn btn-xs btn-default" ng-click="delete({id: item.id})">
+                        <i class="fa fa-trash-o"></i>
+                    </a>
+                </div>
+            </th>
+        </tr>
+        </tbody>
+    </table>
+    <div class="panel-body" ng-show="!sectors.length">
+        <h4 class="list-group-item-heading" translate>
+          There are no sectors 
+        </h4>
+        <p class="list-group-item-text" translate>Click <a href="" ui-sref="^.add()">here</a> to add a sector!</p>
+    </div>
+</div>

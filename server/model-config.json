@@ -73,13 +73,19 @@
   "user": {
     "dataSource": "db",
     "public": true
-  }
-  ,
+  },
   "Supplier": {
     "dataSource": "db",
     "public": true
-  }
-   ,
+  },
+  "Contact": {
+	"dataSource": "db",
+	"public": true
+  },
+  "Sector": {
+    "dataSource": "db",
+	"public": true
+  },
   "Nuance": {
     "dataSource": "db",
     "public": true
