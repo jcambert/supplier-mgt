@@ -22,6 +22,8 @@ app.service('SectorsService', ['CoreService', 'gettextCatalog', 'Sector', functi
     return Sector.findById({id: id}).$promise;
   };
 
+  
+  
   this.deleteSector = function (id, cb) {
     CoreService.confirm(gettextCatalog.getString('Are you sure?'), gettextCatalog.getString('Deleting this cannot be undone'), function () {
       Sector.deleteById(id, function () {

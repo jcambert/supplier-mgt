@@ -128,11 +128,11 @@ angular.module('com.module.products')
 		Nuance.find({},function(nuances){
 			var idx=-1;
 			idx=_.findLastIndex(formFields[1],function(c){ return c.key=='nuanceId';});
-			console.log('options:'+idx);
+			//console.log('options:'+idx);
 			_.map(nuances,function(nuance){
 				formFields[1][idx].options.push({"value":nuance.id,"name":nuance.name});
 			});
-			console.dir(formFields[1][idx].options);
+			//console.dir(formFields[1][idx].options);
 		});
 		
 	}

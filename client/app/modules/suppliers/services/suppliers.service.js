@@ -29,4 +29,33 @@ app.service('SuppliersService', ['CoreService', 'gettextCatalog', 'Supplier', fu
     });
   };
 
+  
+  this.unlinkSector = function(id,sectorId,cb){
+	 CoreService.confirm(gettextCatalog.getString('Are you sure?'), gettextCatalog.getString('Do you really want to unlink'), function () {
+      Supplier.sectors.unlink({id:id,fk:sectorId}, function () {
+        CoreService.toastSuccess(gettextCatalog.getString('Supplier/Sector unlinked'), gettextCatalog.getString('You are unlinked the supplier and the sector!'));
+        cb();
+      }, function (err) {
+        CoreService.toastError(gettextCatalog.getString('Oops'), gettextCatalog.getString('Error while unlinking sector: ') + err);
+        cb();
+      });
+    }, function () {
+      return false;
+    });
+  };
+  
+  this.linkSector = function(id,sectorId,cb){
+	 CoreService.confirm(gettextCatalog.getString('Are you sure?'), gettextCatalog.getString('Do you really want to link'), function () {
+	 console.log('Link supplier id:'+id+' with sector id:'+sectorId);
+      Supplier.sectors.link({'id':id,'fk':sectorId}, function () {
+        CoreService.toastSuccess(gettextCatalog.getString('Supplier/Sector linked'), gettextCatalog.getString('You are linked the supplier and the sector!'));
+        cb();
+      }, function (err) {
+        CoreService.toastError(gettextCatalog.getString('Oops'), gettextCatalog.getString('Error while linking sector: ') + err);
+        cb();
+      });
+    }, function () {
+      return false;
+    });
+  };
 }]);
