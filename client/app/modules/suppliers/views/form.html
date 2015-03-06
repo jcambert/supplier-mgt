@@ -13,6 +13,35 @@
     <formly-form result="supplier" fields="formFields" options="formOptions" ng-submit="onSubmit()"></formly-form>
   </div>
 </div>
+
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-bordered"  ng-show="supplier.contacts.length">
+		<thead>
+			<tr>
+				<td>Nom Prenom</td><td>Email</td><td>Tel.</td><td>Tel.</td>
+			</tr>
+		</thead>
+        <tbody>
+		
+        <tr ng-repeat="contact in supplier.contacts">
+            <td>
+                <a href="" ui-sref="^.view({id: contact.id})">{{contact.last_name}}&nbsp;{{contact.first_name}}</a>
+            </td>
+			 <td>
+               <a href="mailto:{{contact.email}}">{{contact.email}}</a>
+            </td>
+			 <td>
+               {{contact.phone1}}
+            </td>
+			 <td>
+               {{contact.phone2}}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+  </div>
+</div>
 <div class="controls">
     <button class="btn btn-primary btn-success" ng-click="onSubmit()" translate>Submit</button>
 </div>

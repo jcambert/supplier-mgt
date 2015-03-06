@@ -1,8 +1,15 @@
+<div class="panel panel-default" ng-show="suppliers.length" >
+ <div class="panel-body" >
+	<div class="pull-right">
+	<input type="text" value="" placeholder="Criteres de recherche" ng-model="search.$"/>
+	</div>
+ </div>
+</div>
 <div class="panel panel-default" >
 
     <table class="table table-bordered" ng-show="suppliers.length">
         <tbody>
-        <tr ng-repeat="item in suppliers">
+        <tr ng-repeat="item in suppliers | filter:search">
             <th>
                 <a href="" ui-sref="^.view({id: item.id})">{{item.name}}</a>
                 <small>{{item.description}}</small>

@@ -1,11 +1,11 @@
 'use strict';
 angular.module('com.module.suppliers')
-  .controller('suppliersCtrl', function ($scope, $state, $stateParams, CoreService, gettextCatalog, Supplier, SuppliersService) {
+  .controller('suppliersCtrl', function ($scope, $rootScope, $state, $stateParams, CoreService, gettextCatalog, Supplier, SuppliersService) {
 
     var supplierId = $stateParams.id;
 
 	if (supplierId) {
-      $scope.supplier = Supplier.findById({filter:{include:['sectors']}},{
+      $scope.supplier = Supplier.findOne({filter:{where:{id:supplierId},include:['sectors','contacts']}},{
         id: supplierId
       }, function (supplier) {
 		console.dir(supplier);
@@ -19,7 +19,12 @@ angular.module('com.module.suppliers')
 
     $scope.delete = function (id) {
       SuppliersService.deleteSupplier(id, function () {
-        $state.reload();
+	    Supplier.count(function(count){
+			$rootScope['suppliers_count']=count.count;
+			$state.reload();
+		});
+        
+		
       });
     };
 
@@ -87,7 +92,11 @@ angular.module('com.module.suppliers')
     $scope.onSubmit = function () {
       Supplier.upsert($scope.supplier, function () {
         CoreService.toastSuccess(gettextCatalog.getString('Supplier saved'), gettextCatalog.getString('Your supplier is safe with us!'));
-        $state.go('^.list');
+		Supplier.count(function(count){
+			$rootScope['suppliers_count']=count.count;
+			$state.go('^.list');
+		});
+        
       }, function (err) {
         console.log(err);
       });

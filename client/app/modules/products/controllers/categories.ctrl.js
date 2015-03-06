@@ -1,6 +1,6 @@
 'use strict';
 angular.module('com.module.products')
-  .controller('CategoriesCtrl', function ($scope, $state, $stateParams, CoreService, gettextCatalog, Category) {
+  .controller('CategoriesCtrl', function ($scope, $rootScope, $state, $stateParams, CoreService, gettextCatalog, Category) {
     var categoryId = $stateParams.categoryId;
     if (categoryId) {
       $scope.category = Category.findById({
@@ -47,7 +47,10 @@ angular.module('com.module.products')
     $scope.onSubmit = function () {
       Category.upsert($scope.category, function () {
         CoreService.toastSuccess(gettextCatalog.getString('Category saved'), gettextCatalog.getString('Your category is safe with us!'));
-        $state.go('^.list');
+		$rootScope.count(function(count){
+			$rootScope['categories_count']=count.count;
+			$state.go('^.list');
+		});
       }, function (err) {
         console.log(err);
       });

@@ -1,4 +1,4 @@
-{
+	{
   "name": "Contact",
   "plural": "Contacts",
   "base": "PersistedModel",
@@ -11,7 +11,10 @@
 	"last_name": {
 	  "type": "string"
 	},
-	"phone":{
+	"phone1":{
+	  "type": "string"
+	},
+	"phone2":{
 	  "type": "string"
 	},
 	"email": {
@@ -30,8 +33,8 @@
   "validations": [],
   "relations": {
 	"contacts":{
-		"type": "hasMany",
-		"model": "Contact",
+		"type": "belongsTo",
+		"model": "Supplier",
 		"foreignKey": "contactId"
 	}
   },

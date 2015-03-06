@@ -1,6 +1,6 @@
 'use strict';
 angular.module('com.module.products')
-  .controller('ProductsCtrl', function ($scope, $state, $stateParams, CoreService, gettextCatalog, Product, Category,Nuance) {
+  .controller('ProductsCtrl', function ($scope, $rootScope, $state, $stateParams, CoreService, gettextCatalog, Product, Category,Nuance) {
 
 	var today = new Date();
 	var closeday=addDays(today,-15);
@@ -49,6 +49,7 @@ angular.module('com.module.products')
           category.products = Category.products({id: category.id});
           this.push(category);
         }, $scope.categories);
+		$rootScope['categories_count']=categories.length;
       });
     }
 
@@ -58,8 +59,11 @@ angular.module('com.module.products')
       CoreService.confirm(gettextCatalog.getString('Are you sure?'), gettextCatalog.getString('Deleting this cannot be undone'), function () {
         Product.deleteById(id, function () {
           CoreService.toastSuccess(gettextCatalog.getString('Product deleted'), gettextCatalog.getString('Your product is deleted!'));
-          loadItems();
-          $state.go('app.products.list');
+		  Product.count(function(count){
+			loadItems();
+			$rootScope['products_count']=count.count;
+			$state.go('app.products.list');
+		  });
         }, function (err) {
           CoreService.toastError(gettextCatalog.getString('Error deleting product'), gettextCatalog.getString('Your product is not deleted: ') + err);
         });
@@ -73,7 +77,9 @@ angular.module('com.module.products')
 
       Category.deleteById(id, function () {
         CoreService.toastSuccess(gettextCatalog.getString('Category deleted'), gettextCatalog.getString('Your category is deleted!'));
+		
         loadItems();
+		
       }, function (err) {
         CoreService.toastError(gettextCatalog.getString('Error deleting category'), gettextCatalog.getString('Your category is not deleted: ') + err);
       });
@@ -137,11 +143,11 @@ angular.module('com.module.products')
 		
 	}
 	
-	Product.beforeSave = function(next, modelInstance) {
+	/*Product.beforeSave = function(next, modelInstance) {
 		console.log('Product.beforeSave ');
 		modelInstance.name=modelInstance.nuance +' ep: ' + modelInstance.epaisseur ;
 		next();
-	};
+	};*/
     
 
     $scope.formOptions = {
@@ -151,12 +157,15 @@ angular.module('com.module.products')
     };
 
     $scope.onSubmit = function () {
-	console.dir($scope.product);
+		//console.dir($scope.product);
 		Nuance.findById({id:$scope.product.nuanceId},function(nuance){
 			$scope.product.name=nuance.name+ ' ep: '+$scope.product.epaisseur;
 			  Product.upsert($scope.product, function () {
 				CoreService.toastSuccess(gettextCatalog.getString('Product saved'), gettextCatalog.getString('Your product is safe with us!'));
-				$state.go('^.list');
+				Product.count(function(count){
+					$rootScope['products_count']=count.count;
+					$state.go('^.list');
+				});
 			  }, function (err) {
 				console.log(err);
 			  });

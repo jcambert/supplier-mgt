@@ -28,7 +28,18 @@ module.exports = function (app) {
 			keywords:'decoupe jet eau'
 		  },
 		  function(err,supplier){
+		   //console.dir(supplier);
 			supplier.sectors.add(sector,function(err){ if(err)console.log(err);});
+			supplier.contacts.create({
+				first_name:'Marc',
+				last_name:'Wollenschneider',
+				email:'h2o@decoupe.eu',
+				phone1:'09 81 47 09 41',
+				phone2:'06 64 15 32 87' 
+			},function(err,contact){
+				//supplier.contacts.add(contact,function(err){if(err)console.log(err);});
+				//console.log('contact created');
+			});
 		  });
   
 		Supplier.create({

@@ -16,11 +16,14 @@ angular.module ('com.module.suppliers')
 			return SuppliersService.getSuppliers();
 		  }]
 		},
-		 controller: function ($scope,$state, suppliers,SuppliersService) {
+		 controller: function ($scope, $rootScope,$state, suppliers,SuppliersService) {
 		  $scope.suppliers = suppliers;
 		  $scope.delete = function (id) {
 			  SuppliersService.deleteSupplier(id, function () {
-				$state.reload();
+				 SuppliersService.count(function(count){
+					$rootScope['suppliers_count']=count;
+					$state.reload();
+				});
 			  });
 			};
 		}

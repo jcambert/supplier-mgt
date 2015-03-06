@@ -1,6 +1,15 @@
-<div class="panel panel-default" ng-repeat="sector in sectors">
+<div class="panel panel-default" ng-show="sectors.length" >
+ <div class="panel-body" >
+	<div class="pull-right">
+	<input type="text" value="" placeholder="Criteres de recherche" ng-model="search.$"/>
+	</div>
+ </div>
+</div>
+
+<div class="panel panel-default" ng-repeat="sector in sectors | filter:search">
 	 <div class="panel-heading">
         <div class="pull-right">
+		  <span class="label label-default">{{sector.suppliers.length}}</span> 
 			<a href="" class="btn btn-default btn-xs" ng-model="collapsed" ng-click="collapsed=!collapsed"  ><i ng-class="{'fa-chevron-down':!collapsed,'fa-chevron-up':collapsed}" class="fa "></i></a>
              <a href="" class="btn btn-default btn-xs" ui-sref="^.supplieradd({ id: sector.id })">
 				<i class="fa fa-plus-circle"></i>
@@ -14,12 +23,12 @@
 	
     <table class="table table-bordered" ng-show="sector.suppliers.length && collapsed">
         <tbody>
-        <tr ng-repeat="supplier in sector.suppliers">
+        <tr ng-repeat="supplier in sector.suppliers | filter:search">
             <th>
                 <a href="" ui-sref="^.view({id: supplier.id})">{{supplier.name}}</a>
                 <small>{{supplier.description}}</small>
                 <div class="pull-right">
-                     
+                    
                     <a href="" class="btn btn-xs btn-default" ui-sref="app.suppliers.edit({id: supplier.id})">
                         <i class="fa fa-pencil"></i>
                     </a>

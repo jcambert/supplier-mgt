@@ -41,7 +41,7 @@
 	"contacts":{
 		"type": "hasMany",
 		"model": "Contact",
-		"foreignKey": "contactId"
+		"foreignKey": "supplierId"
 	},
 	"sectors": {
       "type": "hasAndBelongsToMany",

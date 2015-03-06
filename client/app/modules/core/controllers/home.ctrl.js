@@ -12,5 +12,7 @@ angular.module('com.module.core')
   $scope.count = {};
 
   $scope.boxes =  $rootScope.dashboardBox;
+  
+  console.dir($scope.boxes);
 
 });

@@ -19,6 +19,7 @@ app.service('SuppliersService', ['CoreService', 'gettextCatalog', 'Supplier', fu
     CoreService.confirm(gettextCatalog.getString('Are you sure?'), gettextCatalog.getString('Deleting this cannot be undone'), function () {
       Supplier.deleteById(id, function () {
         CoreService.toastSuccess(gettextCatalog.getString('Supplier deleted'), gettextCatalog.getString('Your supplier has been deleted!'));
+		
         cb();
       }, function (err) {
         CoreService.toastError(gettextCatalog.getString('Oops'), gettextCatalog.getString('Error deleting supplier: ') + err);
@@ -29,6 +30,11 @@ app.service('SuppliersService', ['CoreService', 'gettextCatalog', 'Supplier', fu
     });
   };
 
+  this.count = function(cb){
+	 Supplier.count(function(count){
+		cb(count.count);
+	});
+  }
   
   this.unlinkSector = function(id,sectorId,cb){
 	 CoreService.confirm(gettextCatalog.getString('Are you sure?'), gettextCatalog.getString('Do you really want to unlink'), function () {
@@ -47,7 +53,7 @@ app.service('SuppliersService', ['CoreService', 'gettextCatalog', 'Supplier', fu
   this.linkSector = function(id,sectorId,cb){
 	 CoreService.confirm(gettextCatalog.getString('Are you sure?'), gettextCatalog.getString('Do you really want to link'), function () {
 	 console.log('Link supplier id:'+id+' with sector id:'+sectorId);
-      Supplier.sectors.link({'id':id,'fk':sectorId}, function () {
+      Supplier.sectors.link({id:id,fk:sectorId},{}, function () {
         CoreService.toastSuccess(gettextCatalog.getString('Supplier/Sector linked'), gettextCatalog.getString('You are linked the supplier and the sector!'));
         cb();
       }, function (err) {

@@ -24,14 +24,36 @@ app.run(function ($rootScope, Setting, gettextCatalog) {
   // Add Dashboard Box
   $rootScope.addDashboardBox = function (name, color, icon, quantity, href,adminBox) {
 	adminBox=adminBox || false;
+	var qty=0;
+	var var_name=''
+	if (quantity instanceof Object){
+		qty=quantity.quantity;
+		var_name=quantity.name;
+		$rootScope[var_name]=qty;
+		$rootScope.$watch(var_name,function(){
+			//console.log(quantity.name + ' qty has changed');
+			var dbox=_.find($rootScope.dashboardBox,function(box){ return box.var_name==var_name;});
+			//console.log('before qty:'+dbox.quantity);
+			dbox.quantity=$rootScope[quantity.name];
+			//console.log('after qty:'+dbox.quantity);
+		});
+		
+	}else{
+		qty=quantity;
+		var_name=name;
+	}
+	
     $rootScope.dashboardBox.push({
       name: name,
       color: color,
       icon: icon,
-      quantity: quantity,
+      quantity: qty,
+	  var_name: var_name,
       href: href,
 	  adminBox:adminBox
     });
+	
+	
   };
 
   // Get Settings for Database

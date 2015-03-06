@@ -89,10 +89,11 @@ angular.module('com.module.sectors')
 	
 	$scope.linkSupplier = function(){
 		console.dir($scope.sector);
-		Supplier.sectors.link({'id':1,'fk':2}, function (err) {$state.go('^.list');});
-		/*SuppliersService.linkSector($scope.sector.supplierId,$scope.sector.id,function(){
+		//Supplier.sectors.link({'id':1,'fk':2},{}, function (err) {$state.go('^.list');});
+		SuppliersService.linkSector($scope.sector.supplierId,$scope.sector.id,function(){
 			$state.go('^.list');
-		});*/
+		});
+		
 	};
 	
 	$scope.formFields = [
