@@ -19,14 +19,18 @@
     <table class="table table-bordered"  ng-show="supplier.contacts.length">
 		<thead>
 			<tr>
-				<td>Nom Prenom</td><td>Email</td><td>Tel.</td><td>Tel.</td>
+				<td>Nom Prenom</td><td>Email</td><td>Tel.</td><td>Tel.</td><td>&nbsp;</td>
 			</tr>
 		</thead>
         <tbody>
 		
         <tr ng-repeat="contact in supplier.contacts">
-            <td>
-                <a href="" ui-sref="^.view({id: contact.id})">{{contact.last_name}}&nbsp;{{contact.first_name}}</a>
+			<td>
+			<span editable-text="contact.first_name" e-name="name" e-form="rowform"  e-required>
+			  <a href="" ui-sref="^.view({id: contact.id})">{{contact.last_name}}&nbsp;{{contact.first_name}}</a>
+			</span>
+            <span editable-text="contact.last_name" e-name="name" e-form="rowform"  e-required> </span>
+                
             </td>
 			 <td>
                <a href="mailto:{{contact.email}}">{{contact.email}}</a>
@@ -37,6 +41,30 @@
 			 <td>
                {{contact.phone2}}
             </td>
+			<td style="white-space: nowrap">
+				 <form editable-form name="rowform"  ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == contact">
+					
+					<a href="" class="btn btn-xs btn-default" ng-disabled="rowform.$waiting" ng-click="savecontact({id:contact.id},rowform.$submit)">
+                        <i class="fa fa-save"></i>
+                    </a>
+					<a href="" class="btn btn-xs btn-default" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()">
+                        <i class="fa fa-undo"></i>
+                    </a>
+				  
+				 </form>
+				 <div class="buttons" ng-show="!rowform.$visible">
+					<div class="pull-left">
+                    <a href="" class="btn btn-xs btn-default" ng-click="rowform.$show()">
+                        <i class="fa fa-pencil"></i>
+                    </a>
+                    <a href="" class="btn btn-xs btn-default" ng-click="delete({id: contact.id})">
+                        <i class="fa fa-trash-o"></i>
+                    </a>
+                </div>
+				  <!--<button class="btn btn-primary" ng-click="rowform.$show()">edit</button>
+				  <button class="btn btn-danger" ng-click="removeUser($index)">del</button>-->
+				</div> 
+			</td>
         </tr>
         </tbody>
     </table>

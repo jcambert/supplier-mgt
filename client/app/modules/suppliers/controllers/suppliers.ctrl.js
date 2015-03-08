@@ -1,6 +1,6 @@
 'use strict';
 angular.module('com.module.suppliers')
-  .controller('suppliersCtrl', function ($scope, $rootScope, $state, $stateParams, CoreService, gettextCatalog, Supplier, SuppliersService) {
+  .controller('suppliersCtrl', function ($scope, $rootScope, $state, $stateParams, CoreService, gettextCatalog, Supplier, SuppliersService,Contact) {
 
     var supplierId = $stateParams.id;
 
@@ -28,9 +28,9 @@ angular.module('com.module.suppliers')
       });
     };
 
-	Supplier.find({filter:{include:['sectors']}},function(supplier){
+	/*Supplier.find({filter:{include:['sectors']}},function(supplier){
 		console.dir(supplier);
-	});
+	});*/
    
 
     $scope.formFields = [
@@ -91,6 +91,7 @@ angular.module('com.module.suppliers')
 
     $scope.onSubmit = function () {
       Supplier.upsert($scope.supplier, function () {
+	  
         CoreService.toastSuccess(gettextCatalog.getString('Supplier saved'), gettextCatalog.getString('Your supplier is safe with us!'));
 		Supplier.count(function(count){
 			$rootScope['suppliers_count']=count.count;
@@ -101,5 +102,19 @@ angular.module('com.module.suppliers')
         console.log(err);
       });
     };
+	
+	$scope.savecontact=function(p,cb){
+		console.dir(p);
+		var contact= _.find($scope.supplier.contacts,function(c){return c.id==p.id;});
+		console.dir(contact);
+		console.dir(cb);
+		if(!contact) return;
+		Contact.upsert(contact,function(){
+			CoreService.toastSuccess(gettextCatalog.getString('Contact saved'), gettextCatalog.getString('Your contact is safe with us!'));
+			cb();
+		},function(err){
+			CoreService.toastError(gettextCatalog.getString('Error'),err);
+		});
+	}
 
   });
