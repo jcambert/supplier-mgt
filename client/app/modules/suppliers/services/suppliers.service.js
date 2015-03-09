@@ -64,4 +64,9 @@ app.service('SuppliersService', ['CoreService', 'gettextCatalog', 'Supplier', fu
       return false;
     });
   };
+  
+  this.createBlankContact=function(id){
+	var contact={supplierId:id,first_name:''};
+	
+  }
 }]);

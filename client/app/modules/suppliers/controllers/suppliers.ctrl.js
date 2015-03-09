@@ -103,18 +103,34 @@ angular.module('com.module.suppliers')
       });
     };
 	
-	$scope.savecontact=function(p,cb){
-		console.dir(p);
-		var contact= _.find($scope.supplier.contacts,function(c){return c.id==p.id;});
-		console.dir(contact);
-		console.dir(cb);
-		if(!contact) return;
-		Contact.upsert(contact,function(){
+	$scope.addcontact = function(){
+		console.dir(Supplier);
+		
+		$scope.inserted ={supplierId:$scope.supplier.id,first_name:'first name'};
+		Supplier.contacts.create($scope.inserted,function(contact){
+			$scope.supplier.contacts.push(contact);
+			$scope.inserted =contact;
+			alert('contact id:'+ $scope.inserted.id +' inserted');
+		});
+		//return;
+		//$scope.inserted.supplierId=$scope.supplier.id;
+		
+	};
+	
+	$scope.savecontact=function(data,id){
+		//console.dir(data);
+		//console.dir(id);
+		var idx= _.findIndex($scope.supplier.contacts,function(c){return c.id==id;});
+		angular.extend($scope.supplier.contacts[idx], data);
+		//console.dir($scope.supplier.contacts[idx]);
+		
+		Contact.upsert($scope.supplier.contacts[idx],function(){
 			CoreService.toastSuccess(gettextCatalog.getString('Contact saved'), gettextCatalog.getString('Your contact is safe with us!'));
-			cb();
+			
 		},function(err){
 			CoreService.toastError(gettextCatalog.getString('Error'),err);
 		});
-	}
+		
+	};
 
   });
