@@ -24,7 +24,7 @@
 		<thead>
 			<tr>
 			<td colspan="6">
-				<a href="" class="btn btn-xs btn-default" ng-disabled="rowform.$waiting" ng-click="addcontact()" >
+				<a href="" class="btn btn-xs btn-default" ng-disabled="rowform.$waiting" ng-click="addBlanckContact()" >
 					<i class="fa fa-plus-circle"></i>
 				</a>
 			</td>
@@ -36,7 +36,6 @@
         <tbody>
 		
         <tr ng-repeat="contact in supplier.contacts">
-		<td>{{contact.id}}</td>
 			<td>
 			<span editable-text="contact.first_name" e-name="name" e-form="rowform"  e-required>
 			  <a href="" ui-sref="^.view({id: contact.id})">{{contact.first_name}}</a>
@@ -46,7 +45,7 @@
 				<span editable-text="contact.last_name" e-name="name" e-form="rowform"  e-required> {{contact.last_name}}</span>
 			</td>
 			 <td>
-				<span editable-text="contact.email" e-name="name" e-form="rowform"  e-required>
+				<span editable-text="contact.email" e-name="name" e-form="rowform"  e-required e-placeholder="Email">
 				  <a href="mailto:{{contact.email}}">{{contact.email}}</a>
 				</span>
             </td>
@@ -75,7 +74,7 @@
                     <a href="" class="btn btn-xs btn-default" ng-click="rowform.$show()">
                         <i class="fa fa-pencil"></i>
                     </a>
-                    <a href="" class="btn btn-xs btn-default" ng-click="delete({id: contact.id})">
+                    <a href="" class="btn btn-xs btn-default" ng-click="deleteContact({id: contact.id})">
                         <i class="fa fa-trash-o"></i>
                     </a>
                 </div>

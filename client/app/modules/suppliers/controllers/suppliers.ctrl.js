@@ -1,6 +1,6 @@
 'use strict';
 angular.module('com.module.suppliers')
-  .controller('suppliersCtrl', function ($scope, $rootScope, $state, $stateParams, CoreService, gettextCatalog, Supplier, SuppliersService,Contact) {
+  .controller('suppliersCtrl', function ($scope, $rootScope, $state, $stateParams, CoreService, gettextCatalog, Supplier, SuppliersService,Contact, ContactsService) {
 
     var supplierId = $stateParams.id;
 
@@ -23,14 +23,10 @@ angular.module('com.module.suppliers')
 			$rootScope['suppliers_count']=count.count;
 			$state.reload();
 		});
-        
-		
       });
     };
 
-	/*Supplier.find({filter:{include:['sectors']}},function(supplier){
-		console.dir(supplier);
-	});*/
+
    
 
     $scope.formFields = [
@@ -103,17 +99,25 @@ angular.module('com.module.suppliers')
       });
     };
 	
-	$scope.addcontact = function(){
-		console.dir(Supplier);
-		
-		$scope.inserted ={supplierId:$scope.supplier.id,first_name:'first name'};
-		Supplier.contacts.create($scope.inserted,function(contact){
+	$scope.deleteContact = function(contactId){
+		ContactsService.deleteContact(contactId.id,function(){
+			_.remove($scope.supplier.contacts,function(contact){return contact.id==contactId.id;});
+			Contact.count(function(count){
+				$rootScope['contacts_count']=count.count;
+			});});
+	};
+	
+	$scope.addBlanckContact = function(){
+		ContactsService.addBlanckContact($scope.supplier.id, function(contact){
 			$scope.supplier.contacts.push(contact);
 			$scope.inserted =contact;
-			alert('contact id:'+ $scope.inserted.id +' inserted');
+			//console.dir('Inserted id:'+contact.id);
+			Contact.count(function(count){
+				$rootScope['contacts_count']=count.count;
+			});
 		});
-		//return;
-		//$scope.inserted.supplierId=$scope.supplier.id;
+		
+		
 		
 	};
 	

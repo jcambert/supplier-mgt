@@ -5,12 +5,57 @@
 	</div>
  </div>
 </div>
-<div class="panel panel-default" >
 
+<div class="panel panel-default" ng-repeat="supplier in suppliers | filter:search" >
+    <div class="panel-heading">
+        <div class="pull-right">
+			<span class="label label-default">{{supplier.contacts.length}}</span>
+			<a href="" class="btn btn-default btn-xs" ng-model="collapsed" ng-click="collapsed=!collapsed" title="{{ (collapsed?'Hide details':'Show details') | translate }}" ><i ng-class="{'fa-chevron-down':!collapsed,'fa-chevron-up':collapsed}" class="fa "></i></a>
+			 <a href="" class="btn btn-xs btn-default" ui-sref="^.edit({id: supplier.id})">
+				<i class="fa fa-pencil"></i>
+			</a>
+			<a href="" class="btn btn-xs btn-default" ng-click="delete({id: supplier.id})">
+				<i class="fa fa-trash-o"></i>
+			</a>
+        </div>
+        <h3 class="panel-title">{{ supplier.name }}</h3>
+		<p class="panel-title">{{supplier.description}}</p>
+		<p class="panel-title">{{supplier.phone}}</p>
+    </div>
+    <table class="table table-bordered" ng-show="supplier.contacts.length && collapsed" >
+        <tbody>
+        <tr ng-repeat="item in supplier.contacts | filter:search">
+            <td>
+                {{item.first_name}}&nbsp;{{item.last_name}}
+                <small>Email:{{item.email}}</small>
+                <small>Tel 1:{{item.phone1}}</small>
+				<small>Tel 2:{{item.phone2}}</small>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="panel-body" ng-show="!supplier.contacts.length && collapsed">
+        <h4 class="list-group-item-heading" translate>
+          There are no contact in {{supplier.name}}
+        </h4>
+        <p class="list-group-item-text" translate>Click edit a supplier to add contact !</p>
+    </div>
+</div>
+
+<!--
+
+<div class="panel panel-default" ng-show="suppliers.length" >
+ <div class="panel-body" >
+	<div class="pull-right">
+	<input type="text" value="" placeholder="Criteres de recherche" ng-model="search.$"/>
+	</div>
+ </div>
+</div>
+<div class="panel panel-default" >
     <table class="table table-bordered" ng-show="suppliers.length">
         <tbody>
         <tr ng-repeat="item in suppliers | filter:search">
-            <th>
+            <td>
                 <a href="" ui-sref="^.view({id: item.id})">{{item.name}}</a>
                 <small>{{item.description}}</small>
                 <div class="pull-right">
@@ -22,7 +67,7 @@
                         <i class="fa fa-trash-o"></i>
                     </a>
                 </div>
-            </th>
+            </td>
         </tr>
         </tbody>
     </table>
@@ -33,3 +78,4 @@
         <p class="list-group-item-text" translate>Click <a href="" ui-sref="^.add()">here</a> to add a supplier!</p>
     </div>
 </div>
+-->

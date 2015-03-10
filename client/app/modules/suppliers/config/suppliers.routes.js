@@ -13,7 +13,7 @@ angular.module ('com.module.suppliers')
 		templateUrl: 'modules/suppliers/views/list.html',
 		resolve: {
 		  suppliers: ['SuppliersService', function (SuppliersService) {
-			return SuppliersService.getSuppliers();
+			return SuppliersService.getSuppliersWithContacts();
 		  }]
 		},
 		 controller: function ($scope, $rootScope,$state, suppliers,SuppliersService) {
