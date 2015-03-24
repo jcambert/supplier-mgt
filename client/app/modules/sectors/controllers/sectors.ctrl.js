@@ -1,5 +1,5 @@
 'use strict';
-angular.module('com.module.sectors')
+angular.module('com.module.sectors',['com.module.suppliers','com.module.contacts'])
   .controller('sectorsCtrl', function ($scope, $state, $stateParams, CoreService, gettextCatalog, Sector,  SectorsService) {
 
     var sectorId = $stateParams.id;

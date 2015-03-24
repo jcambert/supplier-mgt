@@ -1,5 +1,5 @@
 'use strict';
-angular.module('com.module.suppliers')
+angular.module('com.module.contacts')
   .controller('contactsCtrl', function ($scope, $state, $stateParams, CoreService, gettextCatalog, Contact, ContactsService) {
 
     var contactId = $stateParams.id;

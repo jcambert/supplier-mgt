@@ -16,9 +16,10 @@
 
 <div class="controls">
     <button class="btn btn-primary btn-success" ng-click="onSubmit()" translate>Submit</button>
+	<button class="btn btn-primary btn-success" ng-click="onSubmit(true)" translate>Submit and continue</button>
 </div>
 
-<div class="row">
+<div class="row" ng-show="supplier.id">
   <div class="col-md-12">
     <table class="table table-bordered"  >
 		<thead>

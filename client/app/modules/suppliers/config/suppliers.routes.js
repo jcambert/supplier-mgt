@@ -46,44 +46,7 @@ angular.module ('com.module.suppliers')
 	  })
   
   
-  //Contacts Routes
-	.state ('app.contacts', {
-		abstract: true,
-		url: '/contacts',
-		templateUrl: 'modules/suppliers/views/contacts/main.html'
-	  })
-	.state ('app.contacts.list', {
-		url: '',
-		templateUrl: 'modules/suppliers/views/contacts/list.html',
-		resolve: {
-		  contacts: ['ContactsService', function (SuppliersService) {
-			return SuppliersService.getSuppliers();
-		  }]
-		},
-		 controller: function ($scope,$state, contacts,ContactsService) {
-		  $scope.contacts = contacts;
-		  $scope.delete = function (id) {
-			  ContactsService.deleteContact(id, function () {
-				$state.reload();
-			  });
-			};
-		}
-	  })
-	.state ('app.contacts.add', {
-		url: '/add/',
-		templateUrl: 'modules/suppliers/views/contacts/form.html',
-		controller: 'contactsCtrl'
-	  })
-	.state ('app.contacts.edit', {
-		url: '/:id/edit',
-		templateUrl: 'modules/suppliers/views/contacts/form.html',
-		controller: 'contactsCtrl'
-	  })
-	.state ('app.contacts.view', {
-		url: '/:id',
-		templateUrl: 'modules/suppliers/views/contacts/view.html',
-		controller: 'suppliersCtrl'
-	  })
+  
 	  
 	  
 	;

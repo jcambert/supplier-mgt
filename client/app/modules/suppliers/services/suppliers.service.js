@@ -1,5 +1,5 @@
 'use strict';
-var app = angular.module('com.module.suppliers');
+var app = angular.module('com.module.suppliers',['com.module.contacts']);
 
 app.service('SuppliersService', ['CoreService', 'gettextCatalog', 'Supplier', function (CoreService, gettextCatalog, Supplier) {
 
@@ -38,7 +38,7 @@ app.service('SuppliersService', ['CoreService', 'gettextCatalog', 'Supplier', fu
 	 Supplier.count(function(count){
 		cb(count.count);
 	});
-  }
+  };
   
   this.unlinkSector = function(id,sectorId,cb){
 	 CoreService.confirm(gettextCatalog.getString('Are you sure?'), gettextCatalog.getString('Do you really want to unlink'), function () {

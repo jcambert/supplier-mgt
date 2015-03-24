@@ -1,9 +1,9 @@
 'use strict';
-var app = angular.module('com.module.suppliers');
+var app = angular.module('com.module.contacts');
 
 app.service('ContactsService', ['CoreService', 'gettextCatalog', 'Contact', function (CoreService, gettextCatalog, Contact) {
 
-  this.getContact = function () {
+  this.getContacts = function () {
     return Contact.find(/*{
       filter: {
         order: 'created DESC'
@@ -11,7 +11,9 @@ app.service('ContactsService', ['CoreService', 'gettextCatalog', 'Contact', func
     }*/).$promise;
   };
 
-  this.getContact = function (id) {
+ 
+  
+  this.getContacts = function (id) {
     return Contact.findById({id: id}).$promise;
   };
 

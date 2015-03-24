@@ -1,8 +1,8 @@
 <div class="panel panel-default" >
 
-    <table class="table table-bordered" ng-show="suppliers.length">
+    <table class="table table-bordered" ng-show="contacts.length">
         <tbody>
-        <tr ng-repeat="item in suppliers">
+        <tr ng-repeat="item in contacts">
             <th>
                 <a href="" ui-sref="^.view({id: item.id})">{{item.name}}</a>
                 <small>{{item.description}}</small>
@@ -19,10 +19,10 @@
         </tr>
         </tbody>
     </table>
-    <div class="panel-body" ng-show="!suppliers.length">
+    <div class="panel-body" ng-show="!contacts.length">
         <h4 class="list-group-item-heading" translate>
-          There are no suppliers 
+          There are no contacts 
         </h4>
-        <p class="list-group-item-text" translate>Click <a href="" ui-sref="^.add()">here</a> to add a supplier!</p>
+        <p class="list-group-item-text" translate>Click <a href="" ui-sref="^.add()">here</a> to add a contact!</p>
     </div>
 </div>

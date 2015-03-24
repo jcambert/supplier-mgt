@@ -1,5 +1,5 @@
 'use strict';
-angular.module('com.module.suppliers')
+angular.module('com.module.suppliers',['com.module.contacts'])
   .controller('suppliersCtrl', function ($scope, $rootScope, $state, $stateParams, CoreService, gettextCatalog, Supplier, SuppliersService,Contact, ContactsService) {
 
     var supplierId = $stateParams.id;
@@ -85,13 +85,13 @@ angular.module('com.module.suppliers')
       submitCopy: gettextCatalog.getString('Save')
     };
 
-    $scope.onSubmit = function () {
-      Supplier.upsert($scope.supplier, function () {
+    $scope.onSubmit = function (continu) {
+      Supplier.upsert($scope.supplier, function (supplier) {
 	  
         CoreService.toastSuccess(gettextCatalog.getString('Supplier saved'), gettextCatalog.getString('Your supplier is safe with us!'));
 		Supplier.count(function(count){
 			$rootScope['suppliers_count']=count.count;
-			$state.go('^.list');
+			continu?$state.go('^.edit',{id:supplier.id}):$state.go('^.list');
 		});
         
       }, function (err) {
