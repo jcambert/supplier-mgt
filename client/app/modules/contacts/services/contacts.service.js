@@ -18,9 +18,8 @@ app.service('ContactsService', ['CoreService', 'gettextCatalog', 'Contact', func
   };
 
   this.deleteContact = function (id, cb) {
-	console.dir(id);
     CoreService.confirm(gettextCatalog.getString('Are you sure?'), gettextCatalog.getString('Deleting this cannot be undone'), function () {
-      Contact.deleteById({id:id}, function () {
+      Contact.deleteById(id, function () {
         CoreService.toastSuccess(gettextCatalog.getString('Contact deleted'), gettextCatalog.getString('Your contact has been deleted!'));
         cb();
       }, function (err) {
@@ -30,13 +29,6 @@ app.service('ContactsService', ['CoreService', 'gettextCatalog', 'Contact', func
     }, function () {
       return false;
     });
-  };
-  
-  this.addBlanckContact = function(supplierId,cb){
-	var inserted ={supplierId:supplierId};
-	Contact.upsert(inserted,function(contact){
-		cb(contact);
-	});
   };
 
 }]);

@@ -11,10 +11,6 @@ app.service('SuppliersService', ['CoreService', 'gettextCatalog', 'Supplier', fu
     }*/).$promise;
   };
 
-  this.getSuppliersWithContacts = function () {
-    return Supplier.find( {filter:{include:'contacts'}}).$promise;
-  };
-  
   this.getSupplier = function (id) {
     return Supplier.findById({id: id}).$promise;
   };
@@ -69,5 +65,8 @@ app.service('SuppliersService', ['CoreService', 'gettextCatalog', 'Supplier', fu
     });
   };
   
-
+  this.createBlankContact=function(id){
+	var contact={supplierId:id,first_name:''};
+	
+  }
 }]);
